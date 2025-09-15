@@ -1,0 +1,12 @@
+stable-baselines3[extra]
+gymnasium[box2d,classic_control]
+pettingzoo[mpe]
+matplotlib
+numpy
+imageio
+imageio-ffmpeg
+ipython
+bpython
+huggingface_hub
+huggingface_sb3
+

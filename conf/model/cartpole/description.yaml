@@ -1,0 +1,59 @@
+factory_type: callbacks
+model_type: description
+name: cartpole_description
+
+row_sizes:
+  - 4
+  - 8
+  - 6
+  - 2
+col_sizes:
+  - 4
+  - 8
+  - 6
+  - 2
+bias: True
+
+block_types:
+  - [0, 0, 0, 0]
+  - [R=0.8, R=0.65, Row=15, Row=15]
+  - [R=0.55, R=0.5, R=0.5,  Row=15]
+  - [S=15,  R=0.3, R=0.4,  Row=5]
+initialization_types:
+  - [0, 0, 0, 0]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+trainable:
+  - [False, False, False, False]
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+# Note: the first one is ignored if compressed is True
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 4
+  - 8
+  - 6
+  - 2
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(4+8+6, 4+8+6+2)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::4+8+6+2"
+    data: 
+        func: insert
+        idx_list: "asteval::range(4)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(4+8+6, 4+8+6+2)"

@@ -1,0 +1,5 @@
+name: MNIST
+padding_size: 100
+test_size: 500
+max_epochs: 2
+max_iterations: 5

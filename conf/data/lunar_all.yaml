@@ -1,0 +1,21 @@
+defaults:
+  - sequence_type:
+
+dataset: lunar
+env_str: LunarLander-v2
+name: lunar
+min_copies: 5
+max_copies: 5
+transform: baseline
+sequence: False
+train_size: 3000
+validation_size: 1000
+test_size: 500
+batch_size: 16
+n_data_points: 5000
+evaluate_loss: all
+timesteps: 10000
+gym_seq: True
+
+sequence_dict:
+    type: pass

@@ -1,0 +1,28 @@
+factory_type: callbacks
+model_type: LSTM
+name: LSTM
+
+input_size: 2500
+hidden_size: 100
+# Note, if output_size == 0 then the output size is the same as the hidden size
+# but *not* using a linear layer to map the hidden state to the output
+output_size: 10
+
+# There are no activations for 
+activations: False
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+100, 2500+100+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+100+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+100, 2500+100+10)"

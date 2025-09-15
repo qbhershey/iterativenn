@@ -1,0 +1,357 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'stable_baselines3'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[1], line 6\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[39mimport\u001b[39;00m \u001b[39mnumpy\u001b[39;00m \u001b[39mas\u001b[39;00m \u001b[39mnp\u001b[39;00m\n\u001b[1;32m      5\u001b[0m \u001b[39mimport\u001b[39;00m \u001b[39mimageio\u001b[39;00m\n\u001b[0;32m----> 6\u001b[0m \u001b[39mfrom\u001b[39;00m \u001b[39mstable_baselines3\u001b[39;00m \u001b[39mimport\u001b[39;00m PPO\n\u001b[1;32m      8\u001b[0m \u001b[39mfrom\u001b[39;00m \u001b[39mIPython\u001b[39;00m \u001b[39mimport\u001b[39;00m display\n\u001b[1;32m      9\u001b[0m get_ipython()\u001b[39m.\u001b[39mrun_line_magic(\u001b[39m'\u001b[39m\u001b[39mmatplotlib\u001b[39m\u001b[39m'\u001b[39m, \u001b[39m'\u001b[39m\u001b[39minline\u001b[39m\u001b[39m'\u001b[39m)\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'stable_baselines3'"
+     ]
+    }
+   ],
+   "source": [
+    "import gymnasium as gym\n",
+    "import matplotlib.pylab as py\n",
+    "import numpy as np\n",
+    "\n",
+    "import imageio\n",
+    "from stable_baselines3 import PPO\n",
+    "\n",
+    "from IPython import display\n",
+    "%matplotlib inline"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make the environment\n",
+    "env = gym.make(\"LunarLander-v2\", render_mode='rgb_array')\n",
+    "\n",
+    "observation = env.reset()\n",
+    "# Note, there are warnings here that I should fix at some point."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Using cpu device\n",
+      "Wrapping the env with a `Monitor` wrapper\n",
+      "Wrapping the env in a DummyVecEnv.\n",
+      "---------------------------------\n",
+      "| rollout/           |          |\n",
+      "|    ep_len_mean     | 95.8     |\n",
+      "|    ep_rew_mean     | -176     |\n",
+      "| time/              |          |\n",
+      "|    fps             | 203      |\n",
+      "|    iterations      | 1        |\n",
+      "|    time_elapsed    | 10       |\n",
+      "|    total_timesteps | 2048     |\n",
+      "---------------------------------\n",
+      "-----------------------------------------\n",
+      "| rollout/                |             |\n",
+      "|    ep_len_mean          | 97.7        |\n",
+      "|    ep_rew_mean          | -178        |\n",
+      "| time/                   |             |\n",
+      "|    fps                  | 196         |\n",
+      "|    iterations           | 2           |\n",
+      "|    time_elapsed         | 20          |\n",
+      "|    total_timesteps      | 4096        |\n",
+      "| train/                  |             |\n",
+      "|    approx_kl            | 0.007869732 |\n",
+      "|    clip_fraction        | 0.0499      |\n",
+      "|    clip_range           | 0.2         |\n",
+      "|    entropy_loss         | -1.38       |\n",
+      "|    explained_variance   | 0.000595    |\n",
+      "|    learning_rate        | 0.0003      |\n",
+      "|    loss                 | 759         |\n",
+      "|    n_updates            | 10          |\n",
+      "|    policy_gradient_loss | -0.0102     |\n",
+      "|    value_loss           | 1.32e+03    |\n",
+      "-----------------------------------------\n",
+      "-----------------------------------------\n",
+      "| rollout/                |             |\n",
+      "|    ep_len_mean          | 96.9        |\n",
+      "|    ep_rew_mean          | -172        |\n",
+      "| time/                   |             |\n",
+      "|    fps                  | 193         |\n",
+      "|    iterations           | 3           |\n",
+      "|    time_elapsed         | 31          |\n",
+      "|    total_timesteps      | 6144        |\n",
+      "| train/                  |             |\n",
+      "|    approx_kl            | 0.008694321 |\n",
+      "|    clip_fraction        | 0.0269      |\n",
+      "|    clip_range           | 0.2         |\n",
+      "|    entropy_loss         | -1.38       |\n",
+      "|    explained_variance   | -0.00832    |\n",
+      "|    learning_rate        | 0.0003      |\n",
+      "|    loss                 | 616         |\n",
+      "|    n_updates            | 20          |\n",
+      "|    policy_gradient_loss | -0.00752    |\n",
+      "|    value_loss           | 1.1e+03     |\n",
+      "-----------------------------------------\n",
+      "-----------------------------------------\n",
+      "| rollout/                |             |\n",
+      "|    ep_len_mean          | 97.3        |\n",
+      "|    ep_rew_mean          | -160        |\n",
+      "| time/                   |             |\n",
+      "|    fps                  | 192         |\n",
+      "|    iterations           | 4           |\n",
+      "|    time_elapsed         | 42          |\n",
+      "|    total_timesteps      | 8192        |\n",
+      "| train/                  |             |\n",
+      "|    approx_kl            | 0.009684737 |\n",
+      "|    clip_fraction        | 0.0353      |\n",
+      "|    clip_range           | 0.2         |\n",
+      "|    entropy_loss         | -1.37       |\n",
+      "|    explained_variance   | 0.00188     |\n",
+      "|    learning_rate        | 0.0003      |\n",
+      "|    loss                 | 410         |\n",
+      "|    n_updates            | 30          |\n",
+      "|    policy_gradient_loss | -0.00611    |\n",
+      "|    value_loss           | 938         |\n",
+      "-----------------------------------------\n",
+      "-----------------------------------------\n",
+      "| rollout/                |             |\n",
+      "|    ep_len_mean          | 97          |\n",
+      "|    ep_rew_mean          | -167        |\n",
+      "| time/                   |             |\n",
+      "|    fps                  | 191         |\n",
+      "|    iterations           | 5           |\n",
+      "|    time_elapsed         | 53          |\n",
+      "|    total_timesteps      | 10240       |\n",
+      "| train/                  |             |\n",
+      "|    approx_kl            | 0.009651676 |\n",
+      "|    clip_fraction        | 0.065       |\n",
+      "|    clip_range           | 0.2         |\n",
+      "|    entropy_loss         | -1.35       |\n",
+      "|    explained_variance   | -0.00101    |\n",
+      "|    learning_rate        | 0.0003      |\n",
+      "|    loss                 | 185         |\n",
+      "|    n_updates            | 40          |\n",
+      "|    policy_gradient_loss | -0.00641    |\n",
+      "|    value_loss           | 568         |\n",
+      "-----------------------------------------\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<stable_baselines3.ppo.ppo.PPO at 0x7fede9376c50>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# This is an untrained model that has a good architecture and loss function\n",
+    "model = PPO(\"MlpPolicy\", env, verbose=1)\n",
+    "model.learn(total_timesteps=10000)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make a movie of a random agent\n",
+    "env.reset()\n",
+    "images = []\n",
+    "done = False\n",
+    "while not done:\n",
+    "   # This rendering mode puts an image into a numpy array\n",
+    "   images +=  env.render(mode='rgb_array')\n",
+    "   obs, reward, done, info = env.step(env.action_space.sample()) # take a random action\n",
+    "env.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "90"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(images)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(400, 600, 3)"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "images[0].shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "IMAGEIO FFMPEG_WRITER WARNING: input image is not divisible by macro_block_size=16, resizing from (600, 400) to (608, 400) to ensure video compatibility with most codecs and players. To prevent resizing, make your input image divisible by the macro_block_size or set the macro_block_size to 1 (risking incompatibility).\n",
+      "[swscaler @ 0x6737540] Warning: data is not aligned! This can lead to a speed loss\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<video src=\"tmp.mp4\" controls  >\n",
+       "      Your browser does not support the <code>video</code> element.\n",
+       "    </video>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.Video object>"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# imageio is a nice library for taking a sequence of images and makeing a movie \n",
+    "imageio.mimsave('tmp.mp4', images, fps=15)\n",
+    "display.Video('tmp.mp4')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Make a movie of a trained agent\n",
+    "obs = env.reset()\n",
+    "images = []\n",
+    "done = False\n",
+    "while not done:\n",
+    "   # This rendering mode puts an image into a numpy array\n",
+    "   images += env.render(mode='rgb_array')\n",
+    "   action, _states = model.predict(obs, deterministic=True)\n",
+    "   obs, reward, done, info = env.step(action)\n",
+    "   if done:\n",
+    "      obs = env.reset()\n",
+    "env.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "IMAGEIO FFMPEG_WRITER WARNING: input image is not divisible by macro_block_size=16, resizing from (600, 400) to (608, 400) to ensure video compatibility with most codecs and players. To prevent resizing, make your input image divisible by the macro_block_size or set the macro_block_size to 1 (risking incompatibility).\n",
+      "[swscaler @ 0x584a540] Warning: data is not aligned! This can lead to a speed loss\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<video src=\"tmp2.mp4\" controls  >\n",
+       "      Your browser does not support the <code>video</code> element.\n",
+       "    </video>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.Video object>"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "imageio.mimsave('tmp2.mp4', images, fps=15)\n",
+    "display.Video('tmp2.mp4')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "91c69d281b806a3add6b161e23d9089dcb392788fdbe6cdd17c006940cab5b65"
+  },
+  "jupytext": {
+   "cell_metadata_filter": "-all",
+   "formats": "ipynb,py:percent",
+   "main_language": "python"
+  },
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.16"
+  },
+  "toc-autonumbering": false,
+  "toc-showcode": false,
+  "toc-showmarkdowntxt": false,
+  "toc-showtags": false
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

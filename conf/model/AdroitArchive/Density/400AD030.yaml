@@ -1,0 +1,53 @@
+factory_type: callbacks
+model_type: description
+name: description_sparse
+learning_rate: 1e-4
+
+row_sizes:
+  - 39
+  - 400
+  - 28
+col_sizes:
+  - 39
+  - 400
+  - 28
+bias: True
+
+block_types:
+  - [0, 0, 0]
+  - [R=0.30, R=0.30, R=0.30]
+  - [R=0.30, R=0.30, R=0.30]
+initialization_types:
+  - [0, 0, 0]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+trainable:
+  - [False, False, False]
+  - ['non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero']
+
+activations:
+  - Identity
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 39
+  - 400
+  - 28
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(39+400, 39+400+28)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::39+400+28"
+    data: 
+        func: insert
+        idx_list: "asteval::range(39)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(39+400, 39+400+28)"

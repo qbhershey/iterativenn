@@ -1,0 +1,66 @@
+factory_type: callbacks
+model_type: sequential2D
+name: sequential2D_sparse
+
+in_features_list:
+    - 2500
+    - 900
+    - 100
+    - 10
+out_features_list:
+    - 2500
+    - 900
+    - 100
+    - 10
+
+block_types:
+    - [MaskedLinear.from_description, MaskedLinear.from_description, MaskedLinear.from_description, MaskedLinear.from_description]
+    - [MaskedLinear.from_description, MaskedLinear.from_description,  MaskedLinear.from_description, None]
+    - [None, None, MaskedLinear.from_description, MaskedLinear.from_description]
+    - [None, None, None, MaskedLinear.from_description]
+
+block_kwargs:
+    - - {'block_type':'D', 'initialization_type':'G=1.00,0.0001', 'trainable':False, 'bias':False}
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+    - - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - {'block_type':'D', 'initialization_type':'G=1.00,0.0001', 'trainable':False, 'bias':False}
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - None
+    - - None
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - {'block_type':'D', 'initialization_type':'G=1.00,0.0001', 'trainable': False, 'bias':False}
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+    - - {'block_type':'D', 'initialization_type':'G=1.00,0.0005', 'trainable': False, 'bias':False}
+      - None
+      - {'block_type':'R=0.001', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+      - {'block_type':'D', 'initialization_type':'G=1.00,0.0001', 'trainable': False, 'bias':False}
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 2500
+  - 900
+  - 100
+  - 10
+
+callbacks:
+    loss:
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+900+100, 2500+900+100+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+900+100+10"
+    data:
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output:
+        func: max
+        idx_list: "asteval::range(2500+900+100, 2500+900+100+10)"

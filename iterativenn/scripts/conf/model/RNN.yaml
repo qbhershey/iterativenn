@@ -1,0 +1,27 @@
+factory_type: callbacks
+model_type: RNN
+name: RNN
+
+input_size: 2500
+hidden_size: 370
+# Note, output_size must equal hidden_size
+output_size: 370
+
+# There are no activations for 
+activations: False
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+370+360, 2500+370+370)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+370+370"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+370+360, 2500+370+370)"

@@ -1,0 +1,74 @@
+gpt_tmp/
+
+# The virtual environment
+venv*/
+outputs/
+.virtual_documents/
+tmp/
+multirun/
+MNIST/
+experiments/
+LoggerFacade/
+
+# Generated movies
+*.mp4
+
+*.chkp
+output.ipynb
+offline_experiments/
+lightning_logs/
+
+# Temporary and binary files
+*~
+*.py[cod]
+*.so
+*.cfg
+!.isort.cfg
+!setup.cfg
+*.orig
+*.log
+*.pot
+__pycache__/*
+.cache/*
+.*.swp
+**/.ipynb_checkpoints/*
+.DS_Store
+tests/lightning_logs/
+
+# Project files
+.ropeproject
+.project
+.pydevproject
+.settings
+.idea
+.vscode
+tags
+
+# Package files
+*.egg
+*.eggs/
+.installed.cfg
+*.egg-info
+
+# Unittest and coverage
+htmlcov/*
+.coverage
+.coverage.*
+.tox
+junit*.xml
+coverage.xml
+.pytest_cache/
+
+# Build and docs folder/files
+build/*
+dist/*
+sdist/*
+docs/api/*
+docs/_rst/*
+docs/_build/*
+cover/*
+MANIFEST
+
+# Per-project virtualenvs
+.venv*/
+.conda*/

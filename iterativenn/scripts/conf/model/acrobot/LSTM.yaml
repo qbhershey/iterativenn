@@ -1,0 +1,26 @@
+factory_type: callbacks
+model_type: LSTM
+name: acrobot_LSTM
+
+input_size: 6
+hidden_size: 7
+output_size: 3
+
+# There are no activations for LSTM 
+activations: False
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(6+7, 6+7+3)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::6+7+3"
+    data: 
+        func: insert
+        idx_list: "asteval::range(6)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(6+7, 6+7+3)"

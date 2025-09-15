@@ -1,0 +1,54 @@
+factory_type: callbacks
+model_type: description
+name: description_sparse
+structure: '011001'
+learning_rate: 1e-4
+
+row_sizes:
+  - 2500
+  - 774
+  - 10
+col_sizes:
+  - 2500
+  - 774
+  - 10
+bias: True
+
+block_types:
+  - [0, 0, 0]
+  - [R=0.20, R=1.00, R=1.00]
+  - [R=0.20, R=0.20, R=1.00]
+initialization_types:
+  - [0, 0, 0]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+trainable:
+  - [False, False, False]
+  - ['non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero']
+
+activations:
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 2500
+  - 774
+  - 10
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+774, 2500+774+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+774+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+774, 2500+774+10)"

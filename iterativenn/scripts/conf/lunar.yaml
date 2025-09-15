@@ -1,0 +1,20 @@
+defaults:
+  - _self_
+  - base: fast
+  - logger: console
+  - model: lunar/description
+  - data: lunar
+  # Make hydra use joblib for parallel execution
+  - override hydra/launcher: joblib
+
+hydra:
+  launcher:
+    # joblib stuff
+    n_jobs: 4
+  sweeper:
+    params:
+      base: long
+      base.seed: range(121, 124)
+      logger: wandb
+      logger.project: iterativenn-lunar
+      model: lunar/description, lunar/LSTM, lunar/MLP

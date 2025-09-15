@@ -1,0 +1,6 @@
+dataset: adroit_door
+name: adroit_door
+train_size: 4500
+validation_size: 250
+test_size: 250
+batch_size: 64

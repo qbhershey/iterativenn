@@ -1,0 +1,39 @@
+factory_type: callbacks
+model_type: MLP
+name: MLP
+
+sizes:
+  - 2500
+  - 400
+  - 100
+  - 10
+bias: True
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 2500
+  - 400
+  - 100
+  - 10
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+400+100, 2500+400+100+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+400+100+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+400+100, 2500+400+100+10)"
+

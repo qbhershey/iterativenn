@@ -1,0 +1,26 @@
+factory_type: callbacks
+model_type: LSTM
+name: lunar_LSTM
+
+input_size: 8
+hidden_size: 9
+output_size: 4
+
+# There are no activations for LSTM
+activations: False
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(8+9, 8+9+4)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::8+9+4"
+    data: 
+        func: insert
+        idx_list: "asteval::range(8)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(8+9, 8+9+4)"

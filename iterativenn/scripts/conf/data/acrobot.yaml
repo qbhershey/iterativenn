@@ -1,0 +1,17 @@
+defaults:
+  - sequence_type:
+
+dataset: acrobot
+env_str: Acrobot-v1
+name: acrobot
+min_copies: 3
+max_copies: 3
+transform: baseline
+sequence: False
+# addition is the modulo addition example
+# These need to be large enough so that I get every class.  Otherwise I can
+# run into errors with empty lists in the label map.
+train_size: 1800
+validation_size: 1000
+test_size: 500
+batch_size: 1

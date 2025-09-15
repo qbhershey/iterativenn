@@ -1,0 +1,9 @@
+max_epochs: 25
+use_cuda: True
+num_threads: 1
+log_every_n_steps: 1
+# can be null, simple, or advanced
+profiler: null
+# This default is $HOME/iterativenn_logs
+base_dir: default
+seed: None

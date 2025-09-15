@@ -1,0 +1,66 @@
+factory_type: callbacks
+model_type: sequential2D
+name: sequential2D_dense
+
+in_features_list:
+    - 2500
+    - 270
+    - 100
+    - 10  
+out_features_list:
+    - 2500
+    - 270
+    - 100
+    - 10  
+
+block_types: 
+    - [None, MaskedLinear, MaskedLinear, MaskedLinear]
+    - [None, MaskedLinear, MaskedLinear, MaskedLinear]
+    - [None, MaskedLinear, MaskedLinear, MaskedLinear]
+    - [None, MaskedLinear, MaskedLinear, MaskedLinear]
+
+block_kwargs: 
+    - - None 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True} 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+    - - None 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True} 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+    - - None 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True} 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+    - - None 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True} 
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+      - {'block_type':'W', 'initialization_type':'G=0.0,0.05', 'trainable':True, 'bias':True}
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 2500
+  - 270
+  - 100
+  - 10
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+270+100, 2500+270+100+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+270+100+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+270+100, 2500+270+100+10)"

@@ -1,0 +1,41 @@
+factory_type: callbacks
+model_type: MLP
+name: lunar_MLP
+learning_rate: 0.02
+
+# FIXME:  This likely cannot work, since the max_copies=4 in the data/lunar.yaml file.
+#         This would need min_copies=5 and max_copies=5.
+sizes:
+  - 8
+  - 18
+  - 16
+  - 4
+bias: True
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 8
+  - 18
+  - 16
+  - 4
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(8+18+16, 8+18+16+4)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::8+18+16+4"
+    data: 
+        func: insert
+        idx_list: "asteval::range(8)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(8+18+16, 8+18+16+4)"

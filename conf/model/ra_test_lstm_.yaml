@@ -1,0 +1,27 @@
+factory_type: callbacks
+model_type: LSTM
+name: LSTM
+structure: lstm
+learning_rate: 1e-4
+
+input_size: 2500
+hidden_size: 11
+output_size: 10
+
+activations: False
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+11, 2500+11+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+11+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+11, 2500+11+10)"

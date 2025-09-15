@@ -1,0 +1,15 @@
+defaults:
+  # can be uniform or random
+  - sequence_type: random
+
+dataset: MNIST
+transform: both
+name: both_random
+min_copies: 3
+max_copies: 3
+evaluate_loss: all
+sequence: True
+train_size: 2000
+validation_size: 200
+test_size: 200
+batch_size: 32

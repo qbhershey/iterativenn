@@ -1,0 +1,10 @@
+_target_: iterativenn.utils.DatasetUtils.ImageSequence
+_convert_: all
+
+# Positional arguments
+_args_: [images]
+
+# Named Parameters
+min_copies: ${data.min_copies}
+max_copies: ${data.max_copies}
+evaluate_loss: ${data.evaluate_loss}

@@ -1,0 +1,38 @@
+factory_type: callbacks
+model_type: MLP
+name: cartpole_MLP
+
+sizes:
+  - 4
+  - 12
+  - 12
+  - 2
+bias: True
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 4
+  - 12
+  - 12
+  - 2
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(4+12+12, 4+12+12+2)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::4+12+12+2"
+    data: 
+        func: insert
+        idx_list: "asteval::range(4)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(4+12+12, 4+12+12+2)"

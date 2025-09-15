@@ -1,0 +1,38 @@
+factory_type: callbacks
+model_type: MLP
+name: acrobot_MLP
+
+sizes:
+  - 6
+  - 14
+  - 14
+  - 3
+bias: True
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 6
+  - 14
+  - 14
+  - 3
+
+callbacks:
+  loss: 
+      func: MSELoss
+      idx_list: "asteval::range(6+14+14, 6+14+14+3)"
+      sequence_position: last
+  initialization:
+      func: zeros
+      size: "asteval::6+14+14+3"
+  data: 
+      func: insert
+      idx_list: "asteval::range(6)"
+      flatten_input: True
+  output: 
+      func: all
+      idx_list: "asteval::range(6+14+14, 6+14+14+3)"

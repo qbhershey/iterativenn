@@ -1,0 +1,55 @@
+factory_type: callbacks
+model_type: sequential2D
+name: S2D_DenseR
+learning_rate: 1e-4
+
+in_features_list:
+    - 2500
+    - 29
+    - 10  
+out_features_list:
+    - 2500
+    - 29
+    - 10  
+
+block_types: 
+    - [None, MaskedLinear.from_description, MaskedLinear.from_description]
+    - [None, MaskedLinear.from_description, MaskedLinear.from_description]
+    - [None, MaskedLinear.from_description, MaskedLinear.from_description]
+
+block_kwargs: 
+    - - None 
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False} 
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+    - - None 
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False} 
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':False}
+    - - None 
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':True}
+      - {'block_type':'R=1.0', 'initialization_type':'G=0.0,0.05', 'trainable':'non-zero', 'bias':True}
+
+activations:
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 2500
+  - 29
+  - 10
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+29, 2500+29+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+29+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+29, 2500+29+10)"

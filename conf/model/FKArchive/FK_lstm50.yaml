@@ -1,0 +1,26 @@
+factory_type: callbacks
+model_type: LSTM
+name: LSTM
+learning_rate: 1e-4
+
+input_size: 83
+hidden_size: 130
+output_size: 9
+
+activations: False
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(83+130, 83+130+9)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::83+130+9"
+    data: 
+        func: insert
+        idx_list: "asteval::range(83)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(83+130, 83+130+9)"

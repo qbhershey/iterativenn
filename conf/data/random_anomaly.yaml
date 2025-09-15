@@ -1,0 +1,6 @@
+dataset: random_anomaly
+name: random_anomaly
+train_size: 10000
+validation_size: 1000
+test_size: 1000
+batch_size: 16

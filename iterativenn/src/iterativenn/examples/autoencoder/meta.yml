@@ -1,0 +1,30 @@
+parameters:
+  logger_type: comet
+  comet_offline: False
+  comet_project_name: iterativenn
+  comet_experiment_name: experiment
+
+  train_size: 500
+  test_size: 500
+  max_epochs: 2
+
+  model_type: MLP
+  sizes:
+    - 784
+    - 100
+    - 10
+  block_types:
+    - [  0,   W,   0]
+    - [  0,   0,   W]
+    - [  0,   0,   0]
+  bias_types:
+    - 0
+    - W
+    - W
+  sigmas:
+    - I
+    - ReLU
+    - LogSoftmax
+  number_of_iterations: 2
+  input_block: 0
+  output_block: 2

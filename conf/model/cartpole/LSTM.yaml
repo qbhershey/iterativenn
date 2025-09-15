@@ -1,0 +1,26 @@
+factory_type: callbacks
+model_type: LSTM
+name: cartpole_LSTM
+
+input_size: 4
+hidden_size: 7
+output_size: 2
+
+# There are no activations for LSTM
+activations: False
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(4+7, 4+7+2)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::4+7+2"
+    data: 
+        func: insert
+        idx_list: "asteval::range(4)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(4+7, 4+7+2)"

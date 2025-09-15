@@ -1,0 +1,9 @@
+_target_: iterativenn.utils.DatasetUtils.AdditionImageSequence
+_convert_: all
+
+# Positional arguments
+_args_: [images]
+
+# Named Parameters
+copies: ${data.copies}
+transform: 

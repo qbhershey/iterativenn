@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  - base: fast
+  - logger: console
+  - model: description_tiny
+  - data: tiny
+
+# hydra:
+#   launcher:
+#     # joblib stuff
+#     n_jobs: 8
+#   sweeper:
+#     params:
+#       model: LSTM, MLP, RNN, GRU, description_dense, description_sparse, description_tiny, sequential2D, sequential2D_dense, sequential2D_sparse

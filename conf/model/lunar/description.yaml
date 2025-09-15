@@ -1,0 +1,53 @@
+factory_type: callbacks
+model_type: description
+name: lunar_description
+learning_rate: 0.02
+
+row_sizes:
+  - 8
+  - 41
+  - 4
+col_sizes:
+  - 8
+  - 41
+  - 4
+bias: True
+
+block_types:
+  - [0, 0, 0]
+  - [R=0.2, R=0.2, R=0.2]
+  - [R=0.2, R=0.2, R=0.2]
+initialization_types:
+  - [0, 0, 0]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05"]
+trainable:
+  - [False, False, False]
+  - ['non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero']
+
+activations:
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 8
+  - 41
+  - 4
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(8+41, 8+41+4)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::8+41+4"
+    data: 
+        func: insert
+        idx_list: "asteval::range(8)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(8+41, 8+41+4)"

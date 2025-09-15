@@ -1,0 +1,8 @@
+checkpoint*
+slurm-*
+run_*
+wandb
+MNIST/
+*.pt
+logs/
+

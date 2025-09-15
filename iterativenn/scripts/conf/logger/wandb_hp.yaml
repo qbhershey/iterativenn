@@ -1,0 +1,14 @@
+type: wandb
+offline: False
+project: iterativenn-gpt13
+entity: hpathak
+name: experiment-operator
+console_level: info
+log_model: True
+save_model: True
+# This is the name of the model file that will be saved in the wandb directory
+save_model_name: final.pt
+# This file contains the path to the wandb directory, including the
+# unique run id. This is used to load the model from wandb.
+# It can also include other information such as date, time, etc.
+run_path_file: wandb_path.json

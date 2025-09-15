@@ -1,0 +1,36 @@
+factory_type: callbacks
+model_type: sequential2D
+name: wandb_sequential2D
+
+in_features_list:
+    - 3110
+out_features_list:
+    - 3110
+
+block_types: 
+    - [ WandBModule ]
+
+block_kwargs: 
+    - [ run_path_file: wandb_path.json ]
+
+activations:
+  - Identity
+
+activation_sizes:
+  - 3110
+
+callbacks:
+    loss: 
+        func: CrossEntropyLoss
+        idx_list: "asteval::range(2500+500+100, 2500+500+100+10)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::2500+500+100+10"
+    data: 
+        func: insert
+        idx_list: "asteval::range(2500)"
+        flatten_input: True
+    output: 
+        func: max
+        idx_list: "asteval::range(2500+500+100, 2500+500+100+10)"

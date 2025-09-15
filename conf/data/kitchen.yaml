@@ -1,0 +1,6 @@
+dataset: franka_kitchen
+name: franka_kitchen
+train_size: 501
+validation_size: 60
+test_size: 60
+batch_size: 64

@@ -1,0 +1,16 @@
+defaults:
+  # can be uniform or random
+  - sequence_type: uniform
+
+dataset: MNIST
+transform: baseline
+name: medium 
+min_copies: 3
+max_copies: 3
+evaluate_loss: all
+sequence: True
+# Note: These are way too small for real use.  This is just for quick tests.
+train_size: 500
+validation_size: 100
+test_size: 100
+batch_size: 32

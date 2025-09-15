@@ -1,0 +1,18 @@
+defaults:
+  - _self_
+  - base: long
+  - logger: wandb
+  - model: description_tiny
+  - data: medium
+  # Make hydra use joblib for parallel execution
+  - override hydra/launcher: joblib
+
+hydra:
+  launcher:
+    # joblib stuff
+    n_jobs: 4
+  sweeper:
+    params:
+      model: LSTM, MLP, RNN, GRU, description_dense, description_sparse, description_tiny, sequential2D, sequential2D_dense, sequential2D_sparse
+      base.seed: range(121, 124)
+      logger.project: iterativenn-sweep

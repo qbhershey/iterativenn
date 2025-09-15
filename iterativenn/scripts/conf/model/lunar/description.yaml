@@ -1,0 +1,59 @@
+factory_type: callbacks
+model_type: description
+name: lunar_description
+
+row_sizes:
+  - 8
+  - 12
+  - 8
+  - 4
+col_sizes:
+  - 8
+  - 12
+  - 8
+  - 4
+bias: True
+
+block_types:
+  - [0, 0, 0, 0]
+  - [R=0.8, R=0.65, Row=15, Row=15]
+  - [R=0.55, R=0.5, R=0.5,  Row=15]
+  - [S=15,  R=0.3, R=0.4,  Row=5]
+initialization_types:
+  - [0, 0, 0, 0]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+  - ["G=0,0.05", "G=0,0.05", "G=0,0.05", "G=0,0.05"]
+trainable:
+  - [False, False, False, False]
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+  - ['non-zero', 'non-zero', 'non-zero', 'non-zero']
+
+activations:
+  - ReLU
+  - ReLU
+  - ReLU
+  - Identity
+
+activation_sizes:
+  - 8
+  - 12
+  - 8
+  - 4
+
+callbacks:
+    loss: 
+        func: MSELoss
+        idx_list: "asteval::range(8+12+8, 8+12+8+4)"
+        sequence_position: last
+    initialization:
+        func: zeros
+        size: "asteval::8+12+8+4"
+    data: 
+        func: insert
+        idx_list: "asteval::range(8)"
+        flatten_input: True
+    output: 
+        func: all
+        idx_list: "asteval::range(8+12+8, 8+12+8+4)"
